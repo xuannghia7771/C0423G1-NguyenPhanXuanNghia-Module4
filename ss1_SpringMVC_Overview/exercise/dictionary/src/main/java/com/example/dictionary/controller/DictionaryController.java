@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 class DictionaryController {
-    @GetMapping("")
+    @GetMapping("/home/index")
     public String showForm(){
         return "index";
     }
@@ -23,6 +23,8 @@ class DictionaryController {
                 result = english[i];
             } else if (input.equals(english[i])) {
                 result = vietnamese[i];
+            } else {
+                result = "NO WORD!";
             }
         }
         model.addAttribute("result",result);

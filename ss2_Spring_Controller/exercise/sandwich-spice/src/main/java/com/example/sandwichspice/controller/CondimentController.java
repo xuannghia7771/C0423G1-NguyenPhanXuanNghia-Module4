@@ -22,8 +22,4 @@ public class CondimentController {
         redirectAttributes.addFlashAttribute("condiment", Arrays.toString(condiment));
         return "redirect:/home";
     }
-//    public String save(@RequestParam("condiment") String[] condiment, Model model) {
-//        model.addAttribute("condiment", Arrays.toString(condiment));
-//        return "index";
-//    }
 }

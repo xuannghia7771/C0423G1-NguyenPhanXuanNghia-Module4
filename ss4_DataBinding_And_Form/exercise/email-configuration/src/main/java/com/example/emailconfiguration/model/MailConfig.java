@@ -1,7 +1,8 @@
 package com.example.emailconfiguration.model;
 
 public class MailConfig {
-    private String language;
+    private int id;
+    private String languages;
     private String pageSize;
     private String spam;
     private String signature;
@@ -10,19 +11,28 @@ public class MailConfig {
 
     }
 
-    public MailConfig(String language, String pageSize, String spam, String signature) {
-        this.language = language;
+    public MailConfig(int id, String languages, String pageSize, String spam, String signature) {
+        this.id = id;
+        this.languages = languages;
         this.pageSize = pageSize;
         this.spam = spam;
         this.signature = signature;
     }
 
-    public String getLanguage() {
-        return language;
+    public int getId() {
+        return id;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String languages) {
+        this.languages = languages;
     }
 
     public String getPageSize() {

@@ -10,12 +10,37 @@ import java.util.List;
 public class MailConfigRepository implements IMailConfigRepository{
     static List<MailConfig> mailConfigList = new ArrayList<>();
     static {
-        mailConfigList.add(new MailConfig("English","5","Enable spam filter","xzczxc"));
-        mailConfigList.add(new MailConfig("Chinese","50","Enable spam filter","xzczxc"));
-        mailConfigList.add(new MailConfig("Vietnamese","25","Enable spam filter","xzczxc"));
-        mailConfigList.add(new MailConfig("Japanese","100","Enable spam filter","xzczxc"));
+        mailConfigList.add(new MailConfig(1,"English","5","Enable Spam","asdzxc"));
+        mailConfigList.add(new MailConfig(2,"Vietnamese","100","Enable Spam","asdzxc"));
+        mailConfigList.add(new MailConfig(3,"English","50","Enable Spam","zxcasd"));
+        mailConfigList.add(new MailConfig(4,"Japanese","25","Enable Spam","vbnfgh"));
+        mailConfigList.add(new MailConfig(5,"Chinese","10","Enable Spam","yiyu"));
     }
-    public List<MailConfig> getAll(){
+    @Override
+    public List<MailConfig> getAll() {
         return mailConfigList;
     }
+
+    @Override
+    public MailConfig findById(int id) {
+        for (MailConfig mailConfig : mailConfigList){
+            if (mailConfig.getId()==id){
+                return mailConfig;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void edit(int id, MailConfig mailBox) {
+        for (MailConfig mailConfig : mailConfigList){
+            if (mailConfig.getId() == id){
+                mailConfig.getLanguages();
+                mailConfig.getPageSize();
+                mailConfig.getSpam();
+                mailConfig.getSignature();
+            }
+        }
+    }
+
 }

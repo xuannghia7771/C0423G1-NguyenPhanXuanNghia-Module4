@@ -16,4 +16,14 @@ public class MailConfigService implements IMailConfigService{
     public List<MailConfig> getAll() {
         return repository.getAll();
     }
+
+    @Override
+    public MailConfig findById(int id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void edit(int id, MailConfig mailBox) {
+        repository.edit(id, mailBox);
+    }
 }

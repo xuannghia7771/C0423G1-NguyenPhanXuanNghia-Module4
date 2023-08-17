@@ -35,10 +35,10 @@ public class MailConfigRepository implements IMailConfigRepository{
     public void edit(int id, MailConfig mailBox) {
         for (MailConfig mailConfig : mailConfigList){
             if (mailConfig.getId() == id){
-                mailConfig.getLanguages();
-                mailConfig.getPageSize();
-                mailConfig.getSpam();
-                mailConfig.getSignature();
+                mailConfig.setLanguages(mailBox.getLanguages());
+                mailConfig.setPageSize(mailBox.getPageSize());
+                mailConfig.setSpam(mailBox.getSpam());
+                mailConfig.setSignature(mailBox.getSignature());
             }
         }
     }

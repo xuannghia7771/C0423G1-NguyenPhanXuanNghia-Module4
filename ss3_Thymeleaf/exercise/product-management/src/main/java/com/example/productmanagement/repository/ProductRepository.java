@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 @Repository
 public class ProductRepository implements IProductRepository{
     static List<Product> productList = new ArrayList<>();
@@ -28,11 +29,23 @@ public class ProductRepository implements IProductRepository{
     public void create(Product product) {
         productList.add(product);
     }
+    public int search(String id) {
+        for (int i = 0; i < productList.size(); i++) {
+            if (Objects.equals(id, productList.get(i).getId())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    @Override
+    public void delete(String id) {
+        productList.remove(search(id));
+    }
 
     @Override
     public Product findById(String id) {
-        for (Product product : productList) {
-            if (product.getId().equals(id)) {
+        for(Product product: productList){
+            if (Objects.equals(id,product.getId())){
                 return product;
             }
         }
@@ -45,16 +58,13 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
-    public void delete(String id) {
-        productList.remove(search(id));
-    }
-
-    public int search(String id) {
+    public List<Product> searchByName(String name) {
+        List<Product> products = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
-            if (id == productList.get(i).getId()) {
-                return i;
+            if (productList.get(i).getProductName().contains(name)){
+                products.add(productList.get(i));
             }
         }
-        return -1;
+        return products;
     }
 }

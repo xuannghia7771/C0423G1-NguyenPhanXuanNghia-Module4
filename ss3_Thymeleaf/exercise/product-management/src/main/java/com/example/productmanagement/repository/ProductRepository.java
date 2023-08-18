@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class ProductRepository implements IProductRepository{
@@ -21,5 +22,39 @@ public class ProductRepository implements IProductRepository{
     @Override
     public List<Product> getAll() {
         return productList;
+    }
+
+    @Override
+    public void create(Product product) {
+        productList.add(product);
+    }
+
+    @Override
+    public Product findById(String id) {
+        for (Product product : productList) {
+            if (product.getId().equals(id)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void update(String id, Product product) {
+        productList.set(search(id), product);
+    }
+
+    @Override
+    public void delete(String id) {
+        productList.remove(search(id));
+    }
+
+    public int search(String id) {
+        for (int i = 0; i < productList.size(); i++) {
+            if (id == productList.get(i).getId()) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

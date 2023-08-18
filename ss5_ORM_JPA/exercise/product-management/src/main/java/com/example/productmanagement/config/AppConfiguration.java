@@ -32,7 +32,7 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("com.example")
+@ComponentScan("com.example.productmanagement")
 public class AppConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -88,7 +88,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com/example/productmanagement/model"});
+        em.setPackagesToScan(new String[]{"com.example.productmanagement.model"});
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());

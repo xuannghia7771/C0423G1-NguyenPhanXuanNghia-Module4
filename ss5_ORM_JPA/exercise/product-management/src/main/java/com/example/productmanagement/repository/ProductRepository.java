@@ -29,14 +29,6 @@ public class ProductRepository implements IProductRepository {
         entityManager.persist(product);
     }
 
-    //    public int search(String id) {
-//        for (int i = 0; i < productList.size(); i++) {
-//            if (Objects.equals(id, productList.get(i).getId())) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
     @Transactional
     @Override
     public void delete(String id) {

@@ -5,31 +5,26 @@
     <title>View Detail</title>
 </head>
 <body>
-<h3>View Product</h3>
-<p>
-    <a th:href="@{/product}">
-        Back to product list
-    </a>
-</p>
+<h3>View Blog</h3>
 <div id="detail">
+    <!--      int id, String title, String content, String author&ndash;&gt;-->
     <div>
-        <label>ID:</label>
-        <label th:text="${product.id}"></label>
+        <label>Blog Title: </label>
+        <label th:text="${blog.title}"></label>
     </div>
     <div>
-        <label>Product Name: </label>
-        <label th:text="${product.productName}"></label>
+        <label>Content:</label>
+        <label th:text="${blog.content}"></label>
     </div>
     <div>
-        <label>Price:</label>
-        <label th:text="${product.productPrice}"></label>
-    </div><div>
-        <label>Description:</label>
-        <label th:text="${product.productDescription}"></label>
-    </div><div>
-        <label>Publisher:</label>
-        <label th:text="${product.productPublisher}"></label>
+        <label>By:</label>
+        <label th:text="${blog.author}"></label>
     </div>
 </div>
+<p>
+    <a th:href="@{/blog}">
+        Back to blog list
+    </a>
+</p>
 </body>
 </html>

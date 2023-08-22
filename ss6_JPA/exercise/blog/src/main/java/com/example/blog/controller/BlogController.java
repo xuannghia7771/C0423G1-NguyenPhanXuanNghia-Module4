@@ -36,18 +36,30 @@ public class BlogController {
     }
     @GetMapping("/{id}/edit")
         public String showEditForm(Model model, @PathVariable int id) {
-        Blog product = service.findById(id);
-        if (product == null) {
+        Blog blog = service.findById(id);
+        if (blog == null) {
             model.addAttribute("message", "BLOG NOT EXIST");
         } else {
-            model.addAttribute("blog", product);
+            model.addAttribute("blog", blog);
         }
         return "edit";
     }
     @PostMapping("/edit")
-    public String updateBlog(@RequestParam int id, @ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
-        service.update(id, blog);
+    public String updateBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
+        service.save(blog);
         redirectAttributes.addFlashAttribute("message", "EDIT SUCCESSFULLY");
+        return "redirect:/blog";
+    }
+    @GetMapping("/{id}/detail")
+    public String detail(@PathVariable int id, Model model) {
+        Blog blog = service.findById(id);
+        model.addAttribute("blog", blog);
+        return "detail";
+    }
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        service.delete(id);
+        redirectAttributes.addFlashAttribute("mess", "xoa thanh cong");
         return "redirect:/blog";
     }
 }

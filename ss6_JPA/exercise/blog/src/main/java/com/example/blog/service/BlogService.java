@@ -24,11 +24,12 @@ public class BlogService implements IBlogService{
 
     @Override
     public Blog findById(int id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public void update(int id, Blog blog) {
-
+    public void delete(int id) {
+        repository.delete(findById(id));
     }
+
 }

@@ -27,7 +27,8 @@ public class BlogController {
                            @RequestParam(defaultValue = "",required = false) String searchTitle) {
         Pageable pageable = PageRequest.of(page,2);
         Page<Blog> blogPage = service.searchByTitle(pageable,searchTitle);
-        model.addAttribute("blogList",blogPage);
+        model.addAttribute("blogPage",blogPage);
+        model.addAttribute("searchTitle",searchTitle);
         return "list";
     }
     @GetMapping("/create")
@@ -37,7 +38,7 @@ public class BlogController {
     }
     @PostMapping("/save")
     public String create(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes){
-        service.save(blog);
+        service.saveNewBlog(blog);
         redirectAttributes.addFlashAttribute("message", "Create Successfully!");
         return "redirect:/blog";
     }
@@ -53,7 +54,7 @@ public class BlogController {
     }
     @PostMapping("/edit")
     public String updateBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
-        service.save(blog);
+        service.updateBlog(blog);
         redirectAttributes.addFlashAttribute("message", "EDIT SUCCESSFULLY");
         return "redirect:/blog";
     }

@@ -8,12 +8,14 @@ import java.util.List;
 
 public interface IBlogService {
 
-
-    void save(Blog blog);
-
     Blog findById(int id);
+
+
+    Page<Blog> searchByTitle(Pageable pageable, String searchTitle);
+
+    void saveNewBlog(Blog blog);
 
     void delete(int id);
 
-    Page<Blog> searchByTitle(Pageable pageable, String searchTitle);
+    void updateBlog(Blog blog);
 }

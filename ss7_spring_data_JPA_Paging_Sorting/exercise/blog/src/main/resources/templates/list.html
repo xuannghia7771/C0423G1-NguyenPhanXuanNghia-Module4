@@ -17,6 +17,7 @@
         <th>Title</th>
         <th>Content</th>
         <th>Author</th>
+        <th>Category</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -25,8 +26,9 @@
         <td th:text="${status.count}"></td>
         <td th:text="${blog.id}"></td>
         <td th:text="${blog.title}"></td>
-        <td th:text="${blog.content}"></td>
+        <td th:text="${blog.content}" style="width: 30%"></td>
         <td th:text="${blog.author}"></td>
+        <td th:text="${blog.category.getCategoryName()}"></td>
         <td>
             <a th:href="@{/blog/{id}/edit(id=${blog.id})}" style="margin: 20px">EDIT</a>
             <a th:href="@{/blog/{id}/delete(id=${blog.id})}" style="margin: 20px">DELETE</a>
@@ -35,6 +37,9 @@
     </tr>
     </tbody>
 </table>
+<div>
+    <a href=""></a>
+</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </html>

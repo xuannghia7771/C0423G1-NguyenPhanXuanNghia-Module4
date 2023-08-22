@@ -4,6 +4,10 @@ import com.example.blog.model.Blog;
 import com.example.blog.service.IBlogService;
 import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +22,12 @@ public class BlogController {
     @Autowired
     private IBlogService service;
     @GetMapping("")
-    public String showList(Model model) {
-        List<Blog> blogList = service.findAll();
-        model.addAttribute("blogList",blogList);
+    public String showList(Model model,
+                           @RequestParam(defaultValue = "0", required = false) int page,
+                           @RequestParam(defaultValue = "",required = false) String searchTitle) {
+        Pageable pageable = PageRequest.of(page,2);
+        Page<Blog> blogPage = service.searchByTitle(pageable,searchTitle);
+        model.addAttribute("blogList",blogPage);
         return "list";
     }
     @GetMapping("/create")

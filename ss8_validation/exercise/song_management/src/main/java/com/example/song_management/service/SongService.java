@@ -16,4 +16,20 @@ public class SongService implements ISongService {
     public Page<Song> searchBySongName(Pageable pageable, String searchSongName) {
         return songRepository.findSongBySongNameContaining(pageable, searchSongName);
     }
+
+    @Override
+    public void addNewSong(Song song) {
+        songRepository.saveNewSong(song.getSongName(), song.getArtist(), song.getType());
+    }
+
+    @Override
+    public Song findSongById(int id) {
+        return songRepository.findSongById(id);
+    }
+
+    @Override
+    public void updateSong(Song song) {
+        songRepository.updateSong(song.getId(), song.getSongName(), song.getArtist(), song.getType());
+    }
+
 }

@@ -52,6 +52,21 @@ public class SongDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        SongDto songDto = (SongDto) target;
+        if (songDto.getSongName().equals("")){
+            errors.rejectValue("songName",null,"Not Empty");
+        } else if (!songDto.getSongName().matches("^[a-zA-Z0-9]{1,800}$")) {
+            errors.rejectValue("songName",null,"Song name not over 800 char and not contain (@ ; , . = - + , ….)");
+        }
+        if (songDto.getArtist().equals("")){
+            errors.rejectValue("artist",null,"Not Empty");
+        } else if (!songDto.getSongName().matches("^[a-zA-Z0-9]{1,300}$")) {
+            errors.rejectValue("artist",null,"Artist name not over 300 char and not contain (@ ; , . = - + , ….)");
+        }
+        if (songDto.getType().equals("")){
+            errors.rejectValue("type",null,"Not Empty");
+        } else if (!songDto.getType().matches("^[a-zA-Z0-9,]{1,1000}$")) {
+            errors.rejectValue("type",null,"Type name not over 1000 char and not contain only ','");
+        }
     }
 }

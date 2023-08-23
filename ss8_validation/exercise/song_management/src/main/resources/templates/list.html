@@ -30,7 +30,7 @@
         <td th:text="${song.getSongName()}"></td>
         <td th:text="${song.getArtist()}"></td>
         <td th:text="${song.getType()}"></td>
-        <td><a th:href="@{song/edit(id=${song.id})}">
+        <td><a th:href="@{song/{id}/edit(id=${song.id})}">
             <button class="btn btn-outline-success" type="button">EDIT</button>
         </a></td>
     </tr>

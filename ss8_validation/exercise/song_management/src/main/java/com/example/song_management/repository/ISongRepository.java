@@ -17,8 +17,6 @@ public interface ISongRepository extends JpaRepository<Song, Integer> {
     @Query(value = "insert into song(song_artist, song_name, song_type) values (:artist,:name,:type)", nativeQuery = true)
     void saveNewSong(@Param("name") String songName, @Param("artist") String artist, @Param("type") String type);
 
-    @Modifying
-    @Transactional
     @Query(value = "select * from song where song_id = :id", nativeQuery = true)
     Song findSongById(@Param("id") int id);
 

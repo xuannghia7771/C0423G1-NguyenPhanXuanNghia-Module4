@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/shop">Shop</a>
+</p>
+<h1>Your Cart</h1>
+<form th:action="@{/shop}" th:object="${cart}" method="post">
+    <h3>Total Item: <span th:text="${cart.countItemQuantity()}"></span></h3>
+    <h3>Total Product: <span th:text="${cart.countProductQuantity()}"></span></h3>
+</form>
+</body>
+</html>

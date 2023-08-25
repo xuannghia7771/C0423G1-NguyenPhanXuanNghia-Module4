@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h1>Book management</h1>
+    <a th:href="@{/book/create}" style="text-decoration: none">Add new book</a>/
+    <a th:href="@{/book/borrowList}" style="text-decoration: none">List book borrow</a>
+</div>
+
+
+<div>
+    <span th:text="${success}"></span>
+    <span th:text="${message}"></span>
+</div>
+<hr>
+
+<table class="table table-dark table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book,loop : ${bookPage}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${book.getBookName()}"></td>
+        <td th:text="${book.getQuantity()}"></td>
+        <td><a th:href="@{book/{id}/detail(id=${book.getBookId()})}">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div style="text-align: center">
+    <a th:if="${bookPage.hasPrevious()}" th:href="@{/book(page=${bookPage.number -1})}">Previous</a>
+
+    <span th:text="${bookPage.number + 1}"></span> / <span th:text="${bookPage.totalPages}"></span>
+
+    <a th:if="${bookPage.hasNext()}" th:href="@{/book(page=${bookPage.number+1})}">Sau</a>
+</div>
+</body>
+</html>

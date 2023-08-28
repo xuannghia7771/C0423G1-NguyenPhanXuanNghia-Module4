@@ -1,5 +1,7 @@
 package com.example.blog_webservice_spring_boot.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -8,10 +10,11 @@ public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int blogId;
-    private String blogTitle;
+    private String title;
     private LocalDate createDate;
-    private String blogContent;
+    private String content;
     private String author;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     private Category category;
@@ -20,11 +23,11 @@ public class Blog {
 
     }
 
-    public Blog(int blogId, String blogTitle, LocalDate createDate, String blogContent, String author, Category category) {
+    public Blog(int blogId, String title, LocalDate createDate, String content, String author, Category category) {
         this.blogId = blogId;
-        this.blogTitle = blogTitle;
+        this.title = title;
         this.createDate = createDate;
-        this.blogContent = blogContent;
+        this.content = content;
         this.author = author;
         this.category = category;
     }
@@ -37,12 +40,12 @@ public class Blog {
         this.blogId = blogId;
     }
 
-    public String getBlogTitle() {
-        return blogTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBlogTitle(String blogTitle) {
-        this.blogTitle = blogTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDate getCreateDate() {
@@ -53,12 +56,12 @@ public class Blog {
         this.createDate = createDate;
     }
 
-    public String getBlogContent() {
-        return blogContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setBlogContent(String blogContent) {
-        this.blogContent = blogContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getAuthor() {

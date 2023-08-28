@@ -1,20 +1,21 @@
 package com.example.blog_webservice_spring_boot.controller;
 
+
 import com.example.blog_webservice_spring_boot.model.Blog;
 import com.example.blog_webservice_spring_boot.service.IBlogService;
 import com.example.blog_webservice_spring_boot.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-//@RequestMapping("/blog")
+@RequestMapping("/blog")
 public class BlogController {
     @Autowired
     private IBlogService blogService;
@@ -23,12 +24,50 @@ public class BlogController {
     @GetMapping("")
     public String showList(Model model,
                            @RequestParam(defaultValue = "0", required = false) int page,
-                           @RequestParam(defaultValue = "",required = false) String searchBlogTitle) {
+                           @RequestParam(defaultValue = "",required = false) String searchTitle) {
         Pageable pageable = PageRequest.of(page,2);
-        Page<Blog> blogPage = blogService.searchByBlogTitle(pageable,searchBlogTitle);
+        Page<Blog> blogPage = blogService.searchByTitle(pageable,searchTitle);
         model.addAttribute("blogPage",blogPage);
-        model.addAttribute("searchBlogTitle",searchBlogTitle);
+        model.addAttribute("searchTitle",searchTitle);
         return "list";
     }
-
+    @GetMapping("/create")
+    public String showCreate(Model model){
+        model.addAttribute("blog", new Blog());
+        return "create";
+    }
+    @PostMapping("/save")
+    public String create(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes){
+        blogService.saveNewBlog(blog);
+        redirectAttributes.addFlashAttribute("message", "Create Successfully!");
+        return "redirect:/blog";
+    }
+    @GetMapping("/{id}/edit")
+    public String showEditForm(Model model, @PathVariable int id) {
+        Blog blog = blogService.findById(id);
+        if (blog == null) {
+            model.addAttribute("message", "BLOG NOT EXIST");
+        } else {
+            model.addAttribute("blog", blog);
+        }
+        return "edit";
+    }
+    @PostMapping("/edit")
+    public String updateBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
+        blogService.updateBlog(blog);
+        redirectAttributes.addFlashAttribute("message", "EDIT SUCCESSFULLY");
+        return "redirect:/blog";
+    }
+    @GetMapping("/{id}/detail")
+    public String detail(@PathVariable int id, Model model) {
+        Blog blog = blogService.findById(id);
+        model.addAttribute("blog", blog);
+        return "detail";
+    }
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        blogService.delete(id);
+        redirectAttributes.addFlashAttribute("message", "DELETE SUCCESSFULLY");
+        return "redirect:/blog";
+    }
 }

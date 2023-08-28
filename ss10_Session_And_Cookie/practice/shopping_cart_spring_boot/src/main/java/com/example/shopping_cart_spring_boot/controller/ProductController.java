@@ -5,9 +5,12 @@ import com.example.shopping_cart_spring_boot.model.Product;
 import com.example.shopping_cart_spring_boot.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @Controller
@@ -39,5 +42,14 @@ public class ProductController {
         }
         cart.addProduct(productOptional.get());
         return "redirect:/shop";
+    }
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable long id, HttpServletResponse response, Model model) {
+        Cookie cookie = new Cookie("productId", id + "");
+        cookie.setMaxAge(24 * 60 * 60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        model.addAttribute("products", productService.findById(id));
+        return "product-detail";
     }
 }

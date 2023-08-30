@@ -48,4 +48,8 @@ public class BlogService implements IBlogService {
     public List<Blog> findByCategory(int id) {
         return blogRepository.findByCategory(id);
     }
+    @Override
+    public List<Blog> searchName(String title) {
+        return blogRepository.findBlogByTitle("%" + title + "%");
+    }
 }

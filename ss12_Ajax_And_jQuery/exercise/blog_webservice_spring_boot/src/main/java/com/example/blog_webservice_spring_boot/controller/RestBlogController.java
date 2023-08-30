@@ -51,4 +51,12 @@ public class RestBlogController {
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<Blog>> search(@PathVariable String name){
+        List<Blog> blogList = blogService.searchName(name);
+        if (blogList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
+    }
 }

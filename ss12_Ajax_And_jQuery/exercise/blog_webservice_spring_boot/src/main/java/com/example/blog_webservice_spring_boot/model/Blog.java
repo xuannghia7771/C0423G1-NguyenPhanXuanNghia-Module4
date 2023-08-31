@@ -14,7 +14,7 @@ public class Blog {
     private LocalDate createDate;
     private String content;
     private String author;
-    @JsonBackReference
+
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     private Category category;

@@ -19,7 +19,7 @@ public interface IBlogService {
 
     void updateBlog(Blog blog);
 
-    List<Blog> findAll();
+    List<Blog> findAllBlog();
 
     List<Blog> findByCategory(int id);
     List<Blog> searchName(String name);

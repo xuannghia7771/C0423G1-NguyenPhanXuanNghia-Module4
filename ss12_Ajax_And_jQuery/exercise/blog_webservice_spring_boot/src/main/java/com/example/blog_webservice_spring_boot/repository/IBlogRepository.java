@@ -39,4 +39,6 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
 
     @Query(value = "select * from blog where title like :title", nativeQuery = true)
     List<Blog> findBlogByTitle(@Param("title") String title);
+    @Query(value = "select * from blog", nativeQuery = true)
+    List<Blog> findAllBlog();
 }

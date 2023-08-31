@@ -5,6 +5,9 @@ import com.example.blog_webservice_spring_boot.model.Category;
 import com.example.blog_webservice_spring_boot.service.IBlogService;
 import com.example.blog_webservice_spring_boot.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +24,7 @@ public class RestBlogController {
     IBlogService blogService;
     @GetMapping("")
     public ResponseEntity<List<Blog>> showBlogList() {
-        List<Blog> blogList = blogService.findAll();
+        List<Blog> blogList = blogService.findAllBlog();
         if (blogList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -58,5 +61,14 @@ public class RestBlogController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Page<Blog>> searchBlog(@RequestParam String searchTitle, @RequestParam int page){
+        Pageable pageable = PageRequest.of(page, 3);
+        Page<Blog> blogPage = blogService.searchByTitle(pageable, searchTitle);
+        if (blogPage != null){
+            return new ResponseEntity<>(blogPage, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
